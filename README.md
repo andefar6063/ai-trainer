@@ -1,2 +1,2 @@
-# discomate
-Discomate boasts a versatile array of functions as a Discord bot
+# ai-teacher
+AI-Teacher makes it possible for you to get help from former innovators and more.
