@@ -12,7 +12,7 @@ page_data = {
 }
 
 def get_user_input():
-    print("\nHello and welcome to the AI-Teacher!\n")
+    console_log("\nHello and welcome to the AI-Trainer!\n")
     return input("What are you interested in doing? ['question', 'help', 'new-person'] : ")
 
 async def execute_action(action):
@@ -23,7 +23,7 @@ async def execute_action(action):
         else:
             page_data[action]()
     else:
-        print("I did not understand that... Please retry")
+        console_log("I did not understand that... Please retry", "red")
 
 async def main():
     clear_screen()

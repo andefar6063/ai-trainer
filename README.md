@@ -1,2 +1,2 @@
-# ai-teacher
-AI-Teacher makes it possible for you to get help from former innovators and more.
+# ai-trainer
+AI-Trainer makes it possible for you to get help fulfilling your health goals.

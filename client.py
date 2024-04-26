@@ -8,17 +8,17 @@ class AIClient():
             api_key=os.environ.get("OPENAI_API_KEY"),
         )
         self.json_data = get_json_data()
-        self.teacher = None
+        self.trainer = None
         self.question = None
 
-    def get_teacher(self, prompt):
+    def get_trainer(self, prompt):
         while True:
             user_input = input(prompt).lower()
             for key, value in self.json_data.items():
                 if user_input == key.lower() or user_input == value["command_key"].lower():
-                    self.teacher = key
+                    self.trainer = key
                     return
-            print("Invalid input. Please try again.")
+            console_log("Invalid input. Please try again.", "red")
 
     def get_question(self, prompt):
         self.question = input(prompt).lower()
@@ -28,12 +28,12 @@ class AIClient():
             completion = self.client.chat.completions.create(
                 model="gpt-4",
                 temperature=0,
+                max_tokens=100,
                 messages=[
-                    {"role": "system", "content": self.json_data[self.teacher]["content"]},
+                    {"role": "system", "content": self.json_data[self.trainer]["content"]},
                     {"role": "user", "content": self.question}
                 ]
             )
             return completion.choices[0].message.content
-        except Exception as e:
-            print(f"Error: {e}")
+        except:
             return "An error occurred while processing your request."
