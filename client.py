@@ -16,12 +16,15 @@ class AIClient:
             for key, value in self.json_data.items():
                 if user_input == key.lower() or user_input == value["command_key"].lower():
                     self.trainer = key
-                    print(self.trainer)
+                    console_log(f"Selected trainer: {self.trainer}", "green")
+                    #console_log(f"Trainer key: {self.json_data[self.trainer]["key"]}", "green")
                     return
             console_log("Invalid input. Please try again.", "red")
 
     def create_thread(self):
         self.thread = self.client.beta.threads.create()
+        if "initial_prompt" in self.json_data[self.trainer]:
+            self.add_message_to_thread(self.json_data[self.trainer]["initial_prompt"])
 
     def add_message_to_thread(self, content):
         self.client.beta.threads.messages.create(
@@ -42,47 +45,13 @@ class AIClient:
                 
             def on_tool_call_created(self, tool_call):
                 print(f"\nassistant > {tool_call.type}\n", flush=True)
-            
-            def on_tool_call_delta(self, delta, snapshot):
-                if delta.type == 'code_interpreter':
-                    if delta.code_interpreter.input:
-                        print(delta.code_interpreter.input, end="", flush=True)
-                if delta.code_interpreter.outputs:
-                    print(f"\n\noutput >", flush=True)
-                    for output in delta.code_interpreter.outputs:
-                        if output.type == "logs":
-                            print(f"\n{output.logs}", flush=True)
 
         with self.client.beta.threads.runs.stream(
                 thread_id=self.thread.id,
                 assistant_id=self.json_data[self.trainer]["key"],
-                instructions="Please address the user as User.",
                 event_handler=EventHandler(),
         ) as stream:
             stream.until_done()
-
-    """
-    async def run_assistant(self):
-        try:
-            run = self.client.beta.threads.runs.create_and_poll(
-                thread_id=self.thread.id,
-                assistant_id=self.json_data[self.trainer]["key"],
-                instructions="Please address the user as User."
-            )
-        except Exception as e:
-            print(e)
-            return
-
-        while run.status != 'completed':
-            await asyncio.sleep(1)  # Adjust sleep time as needed
-            run.poll()  # Poll the run status
-
-        if run.status == 'completed': 
-            messages = self.client.beta.threads.messages.list(thread_id=self.thread.id)
-            for message in messages:
-                print(message.content)
-        else:
-            print(run.status)"""
 
 
 

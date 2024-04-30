@@ -10,9 +10,10 @@ async def question():
     client.create_thread()
     message_active = True
     while message_active:
+        console_log("\n")
         client.add_message_to_thread(input("Type here: "))
         client.run_assistant()
-        print("\n")
+        console_log("\n")
         if input("Would you like to close the thread: ['y' or 'n'] ") == "y":
             message_active = False
         else:
@@ -27,6 +28,3 @@ async def question():
     else:
         clear_screen()
         question()
-
-if __name__ == "__main__":
-    question()
