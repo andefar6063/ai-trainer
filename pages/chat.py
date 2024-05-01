@@ -1,5 +1,6 @@
-from utils import clear_screen, show_json_data, console_log
 from client import AIClient
+from utils import clear_screen, show_json_data, console_log
+
         
 async def question():
     console_log("Here are all the trainers you can use!\n")
@@ -19,7 +20,6 @@ async def question():
         else:
             continue
 
-    
     user_return = input("Return to the main page: ['y' or 'n'] ").lower()
 
     if user_return == "y":

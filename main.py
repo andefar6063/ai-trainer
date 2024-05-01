@@ -2,18 +2,18 @@ import asyncio
 
 from utils import clear_screen, console_log
 from pages.help import help
-from pages.question import question
-from pages.new_data import person
+from pages.chat import question
+from pages.new import person
 
 page_data = {
     "help": help,
-    "question": question,
-    "new-person": person
+    "start": question,
+    "new": person
 }
 
 def get_user_input():
     console_log("\nHello and welcome to the AI-Trainer!\n")
-    return input("What are you interested in doing? ['question', 'help', 'new-person'] : ")
+    return input("What are you interested in doing? ['start', 'help', 'new'] : ")
 
 async def execute_action(action):
     if action in page_data:
