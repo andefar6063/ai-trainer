@@ -23,6 +23,7 @@ def person():
 
         command_key = [i[0].upper() for i in userName.split()]
         json_data = get_json_data()
+
         person_id = int(list(json_data.keys())[-1]) + 1 if json_data else 1
         
         person_dict = {
@@ -36,10 +37,16 @@ def person():
         with open("./trainers.json", "w") as file:
             json.dump({**json_data, **person_dict}, file, indent=4)
         
+    except json.JSONDecodeError:
+        console_log("Error reading or writing JSON data. Please ensure the data format is correct.", "red")
+    except FileNotFoundError:
+        console_log("The file 'trainers.json' was not found. Please check the file path.", "red")
+    except IOError as io_error:
+        console_log(f"File I/O error occurred: {io_error}", "red")
     except Exception as e:
         console_log(f"Error occurred: {e}", "red")
-        if input("Would you like to retry? ['y' or 'n'] ") == "y":
+        if input("Would you like to retry? ['y' or 'n'] ").lower() == "y":
             clear_screen()
-            person()   
+            person()
         else:
             pass

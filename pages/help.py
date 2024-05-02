@@ -9,14 +9,18 @@ def help():
           |                                                                                   |
           | 'question': Sends you to the question page, where you are able to ask a question. |
           +-----------------------------------------------------------------------------------+""")
-    user_input = input("Return to the main page: ['y' or 'n'] ").lower()
-    while user_input not in ["y", "n"]:
-        clear_screen()
-        help()
-    if user_input == "y":
-        clear_screen()
-        return
-    clear_screen()
-    help()
-    
+    while True:
+        try:
+            user_input = input("Return to the main page: ['y' or 'n'] ").lower().strip()
+            if user_input not in ["y", "n"]:
+                raise ValueError("Please enter 'y' or 'n' only.")
+            if user_input == "y":
+                clear_screen()
+                break
+        except ValueError as ve:
+            console_log(str(ve), "yellow")
+            continue
+        except Exception as e:
+            console_log(f"Unexpected error: {str(e)}", "red")
+            continue
     

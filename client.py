@@ -16,8 +16,6 @@ class AIClient:
             for key, value in self.json_data.items():
                 if user_input == key.lower() or user_input == value["command_key"].lower():
                     self.trainer = key
-                    console_log(f"Selected trainer: {self.trainer}", "green")
-                    #console_log(f"Trainer key: {self.json_data[self.trainer]["key"]}", "green")
                     return
             console_log("Invalid input. Please try again.", "red")
 
