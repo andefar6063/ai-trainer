@@ -3,11 +3,11 @@ from utils import clear_screen, console_log
 def help():
     print("""Here are all the commands you can use!\n
           +-----------------------------------------------------------------------------------+
-          | 'new-data': Sends you to the create teacher page.                                 |
+          | 'new': Sends you to the create teacher page.                                 |
           |                                                                                   |
           | 'help': Shows the page you are seeing right now.                                  |    
           |                                                                                   |
-          | 'question': Sends you to the question page, where you are able to ask a question. |
+          | 'start': Sends you to the question page, where you are able to ask a question. |
           +-----------------------------------------------------------------------------------+""")
     while True:
         try:
